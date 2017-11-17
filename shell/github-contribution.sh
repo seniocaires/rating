@@ -1,20 +1,25 @@
 #!bin/bash
 
-## Configurações do git
-git config --global user.name ${GIT_USER_NAME}
-git config --global user.email ${GIT_USER_EMAIL}
-
-# Clonar o repositório
+echo "Clonando o repositorio "${GITHUB_RATING_REPOSITORY_NAME}"..."
+rm -rf /tmp/rating
+url_repositorio="https://"${GITHUB_USER_NAME}:${GITHUB_PASSWORD}@github.com/${GITHUB_USER_NAME}/${GITHUB_RATING_REPOSITORY_NAME}".git"
 cd /tmp
-git clone ${GIT_RATING_REPOSITORIO} rating
+git clone ${url_repositorio} rating
+echo "Repositorio clonado em /tmp/rating!"
 
-# Alterar o arquivo string-random
-STRING_RANDOM=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
-echo STRING_RANDOM >> /tmp/rating/shell/string-random
+echo "Alterando o arquivo /tmp/rating/shell/string-random ... "
+string_random=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+echo ${string_random} > /tmp/rating/shell/string-random
+echo "Arquivo alterado!"
 
-# Commit e push
 cd /tmp/rating
+echo "Configurando git (autor) ..."
+git config user.name ${GIT_CONFIG_USER_NAME}
+git config user.email ${GIT_CONFIG_USER_EMAIL}
+echo "Adicionando para Stage Area ..."
 git add .
-git commit -m "Alteração do arquivo string-random"
-git push
+echo "Commit ..."
+git commit -m "Alteracao do arquivo string-random"
+echo "Push ..."
+git push ${url_repositorio} --all
 
