@@ -13,6 +13,8 @@ STRING_RANDOM=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 echo STRING_RANDOM >> /tmp/rating/shell/string-random
 
 # Commit e push
-git commit -am "Alteração do arquivo string-random"
+cd /tmp/rating
+git add .
+git commit -m "Alteração do arquivo string-random"
 git push
 
