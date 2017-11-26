@@ -2,15 +2,12 @@ FROM debian:stretch
 
 LABEL maintainer="seniocaires@gmail.com"
 
-ENV GIT_CONFIG_USER_NAME="Senio Caires"
-ENV GIT_CONFIG_USER_EMAIL="seniocaires@gmail.com"
-ENV GITHUB_RATING_REPOSITORY_NAME="rating"
-ENV GITHUB_USER_NAME="seniocaires"
-ENV GITHUB_PASSWORD=""
-
 COPY . /app
 
-RUN apt-get update && apt-get install -y git \
+RUN apt-get update && apt-get install -y git cron \
+    && mv /app/cron/crontab /etc/cron.d/github-contributions-cron \
+    && chmod 0644 /etc/cron.d/github-contributions-cron \
+    && /usr/bin/crontab /etc/cron.d/github-contributions-cron \
     && chmod +x /app/entrypoint.sh
 
 ENTRYPOINT ["sh", "/app/entrypoint.sh"]
