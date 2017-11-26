@@ -1,9 +1,5 @@
 # Rating
 
-### Imagem no Docker Hub  
-
-seniocaires/rating
-
 ### Environments
 
 GIT_CONFIG_USER_NAME  
