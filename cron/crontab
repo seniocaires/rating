@@ -1,1 +1,1 @@
-0 * * * * sh /app/shell/github-contribution.sh > /proc/1/fd/1 2>/proc/1/fd/2
+0 * * * * /bin/bash /app/shell/github-contribution.sh > /proc/1/fd/1 2>/proc/1/fd/2
